@@ -1,0 +1,288 @@
+@import "tailwindcss";
+
+/* =========================================================
+   Theme Tokens (mapped to Tailwind colors)
+   ========================================================= */
+@theme {
+  --color-body-bg: var(--body-bg);
+  --color-body-text: var(--body-text);
+
+  --color-sidebar-bg: var(--sidebar-bg);
+  --color-sidebar-text: var(--sidebar-text);
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+
+  --color-accent-purple: var(--accent-purple);
+  --color-accent-yellow: var(--accent-yellow);
+  --color-accent-pink: var(--accent-pink);
+  --color-accent-blue: var(--accent-blue);
+
+  --color-card-gradient-start: var(--card-gradient-start);
+  --color-card-gradient-end: var(--card-gradient-end);
+
+  --color-pencil-wood: var(--pencil-wood);
+  --color-pencil-lead: var(--pencil-lead);
+  --color-pencil-dark: var(--pencil-dark);
+  --color-pencil-light: var(--pencil-light);
+
+  /* Timeline specific colors */
+  --color-timeline-line: var(--timeline-line);
+  --color-timeline-node: var(--timeline-node);
+  --color-timeline-shadow: var(--timeline-shadow);
+
+  /* Text colors */
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  /* Shadow colors (for use in arbitrary values) */
+  --color-shadow-outer-dark: var(--shadow-outer-dark);
+}
+
+/* =========================================================
+   Dark Mode Variant
+   ========================================================= */
+@variant dark (&:where(.dark, .dark *));
+
+/* =========================================================
+   Root (Light Theme)
+   ========================================================= */
+:root {
+  --body-bg: #f5f5f7;
+  --body-text: #111827;
+
+  --sidebar-bg: #ffffff;
+  --sidebar-text: #111827;
+  --sidebar-border: #e5e7eb;
+
+  --card-bg: #ffffff;
+  --card-border: #a5a5a5;
+
+  --primary: #eab308;
+  --primary-hover: #facc15;
+
+  --accent-purple: #c084fc;
+  --accent-yellow: #facc15;
+  --accent-pink: #f472b6;
+  --accent-blue: #60a5fa;
+
+  --card-gradient-start: #2563eb;
+  --card-gradient-end: #7e22ce;
+
+  --pencil-wood: #e2c4a6;
+  --pencil-lead: #374151;
+  --pencil-dark: #ca8a04;
+  --pencil-light: #facc15;
+
+  /* Timeline colors matching PDF */
+  --timeline-line: #93c5fd;
+  --timeline-node: #93c5fd;
+  --timeline-shadow: rgba(0, 0, 0, 0.15);
+
+  /* Semantic Text */
+  --text-secondary: #4b5563; /* gray-600 */
+  --text-muted: #6b7280; /* gray-500 */
+
+  /* Neumorphism Shadows (Light Mode) */
+  --shadow-outer-dark: rgba(0, 0, 0, 0.08);
+  --shadow-outer-light: rgba(255, 255, 255, 0.8);
+  --shadow-inner-dark: rgba(0, 0, 0, 0.15);
+  --shadow-inner-light: rgba(255, 255, 255, 0.8);
+}
+
+/* =========================================================
+   Dark Theme
+   ========================================================= */
+.dark {
+  --body-bg: #1a1b1e;
+  --body-text: #e5e7eb;
+
+  --sidebar-bg: #1d1e22;
+  --sidebar-text: #ffffff;
+  --sidebar-border: #2b2c30;
+
+  --card-bg: #242529;
+  --card-border: #2e2f31;
+
+  --primary: #facc15;
+  --primary-hover: #eab308;
+
+  --accent-purple: #581c87;
+  --accent-yellow: #713f12;
+  --accent-pink: #831843;
+  --accent-blue: #1e3a8a;
+
+  --card-gradient-start: #2563eb;
+  --card-gradient-end: #7e22ce;
+
+  --pencil-wood: #e2c4a6;
+  --pencil-lead: #374151;
+  --pencil-dark: #a16207;
+  --pencil-light: #eab308;
+
+  /* Timeline colors for dark mode */
+  --timeline-line: #7cb3e8;
+  --timeline-node: #7cb3e8;
+  --timeline-shadow: rgba(0, 0, 0, 0.5);
+
+  /* Semantic Text */
+  --text-secondary: #9ca3af; /* gray-400 */
+  --text-muted: #6b7280; /* gray-500 */
+
+  /* Neumorphism Shadows (Dark Mode) */
+  --shadow-outer-dark: rgba(0, 0, 0, 0.6);
+  --shadow-outer-light: rgba(255, 255, 255, 0.05);
+  --shadow-inner-dark: rgba(0, 0, 0, 0.6);
+  --shadow-inner-light: rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================================
+   Base Styles
+   ========================================================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-body-bg text-body-text transition-colors duration-300;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+/* =========================================================
+   Layout Utilities
+   ========================================================= */
+.section-container {
+  @apply px-6 md:px-10 py-10 min-h-screen transition-all duration-300;
+}
+
+/* =========================================================
+   Card Component (Base)
+   ========================================================= */
+.card {
+  @apply bg-card-bg border border-card-border rounded-xl p-6 shadow-sm
+         transition-colors duration-200;
+}
+
+.card:hover {
+  border-color: theme(--color-primary);
+}
+
+/* =========================================================
+   Animations
+   ========================================================= */
+
+/* Slide-in (Right Sidebar / Menu) */
+@keyframes slideLeft {
+  from {
+    transform: translateX(260px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slideLeft {
+  animation: slideLeft 0.3s ease-out forwards;
+}
+
+/* Floating Background Blobs */
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatSlowReverse {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(30px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.animate-floatSlow {
+  animation: floatSlow 14s ease-in-out infinite;
+}
+
+.animate-floatSlowReverse {
+  animation: floatSlowReverse 16s ease-in-out infinite;
+}
+
+/* Blob Motion (About Page) */
+@keyframes blob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Slow Spin */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+/* =========================================================
+   Grid Background Pattern (About Page)
+   ========================================================= */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+.dark .bg-grid-pattern {
+  background-image: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
