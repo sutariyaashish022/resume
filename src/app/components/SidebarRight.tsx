@@ -36,15 +36,6 @@ export default function SidebarRight() {
         >
           {mounted && (resolvedTheme === "dark" ? <i className="bi bi-sun-fill"></i> : <i className="bi bi-moon-fill"></i>)}
         </button>
-
-        {/* Rotated Page Title */}
-        <div className="mt-auto mb-20 rotate-180 writing-vertical-rl text-xs font-bold tracking-[0.2em] text-text-secondary uppercase">
-          {pathname === "/"
-            ? "HOME"
-            : pathname.startsWith("/experience")
-            ? "EXPERIENCE"
-            : pathname.split("/")[1]}
-        </div>
       </aside>
 
       {/* Mobile Menu Button (Top Right) */}
